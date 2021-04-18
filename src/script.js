@@ -12,9 +12,11 @@ const scene = new THREE.Scene()
 const geometry = new THREE.BoxGeometry(1, 1, 1) // width, height, depth
 const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
 const cube = new THREE.Mesh(geometry, material)
-cube.position.x = 0.7
-cube.position.y = -0.6
-cube.position.z = 1
+// cube.position.x = 0.7
+// cube.position.y = -0.6
+// cube.position.z = 1
+// same as above
+cube.position.set(0.7, -0.6, 1)
 
 const sizes = {
     width: 800,
