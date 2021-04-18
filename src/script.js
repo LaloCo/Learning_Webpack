@@ -5,3 +5,5 @@ import './style.css'
 // to the index.html for it to work, and since this
 // file is importing thee styles.css, we don't need
 // to add it to the html file either.
+
+console.log("Hello webpack")
