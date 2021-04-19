@@ -16,20 +16,31 @@ const cube = new THREE.Mesh(geometry, material)
 // cube.position.y = -0.6
 // cube.position.z = 1
 // same as above
-cube.position.set(0.7, -0.6, 1)
+cube.position.set(0.7, 0.6, -1)
+cube.scale.set(2, 0.5, 0.5)
+
+cube.rotation.reorder('YXZ') // sets order of rotation
+// rotating Y and then X is not the same as rotating X and then Y
+// explanation at about minute 31 of lecture 5: https://threejs-journey.xyz/lessons/5
+cube.rotation.x = Math.PI * 0.25 // PI is half a rotation (180 degrees)
+cube.rotation.y = Math.PI * 0.25
 
 const sizes = {
     width: 800,
     height: 600
 }
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height) // degrees & aspect ratio
-camera.position.z = 3 // three times thee size of cube (which is 1x1x1 as set)
+// camera.position.z = 3 // three times thee size of cube (which is 1x1x1 as set b4 scale)
+camera.position.set(0.5, 1.5, 3)
 
 console.log(cube.position.length()) // distance from 0,0,0
 console.log(cube.position.distanceTo(camera.position)) // distance to camera
 
+const axesHelper = new THREE.AxesHelper(3) // units three times cube since it's 1x1x1 (b4 scale)
+
 scene.add(cube)
 scene.add(camera)
+scene.add(axesHelper)
 
 const canvas = document.querySelector('.webgl')
 const renderer = new THREE.WebGLRenderer({
