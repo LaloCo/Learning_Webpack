@@ -16,41 +16,35 @@ const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1), // width, height, depth
     new THREE.MeshBasicMaterial({ color: 0xff0000 })
 )
-// cube.position.x = 0.7
-// cube.position.y = -0.6
-// cube.position.z = 1
-// same as above
-cube.position.set(0.7, 0.6, -1)
-cube.scale.set(2, 0.5, 0.5)
-cube.rotation.reorder('YXZ') // sets order of rotation (before setting rotation)
-// rotating Y and then X is not the same as rotating X and then Y
-// explanation at about minute 31 of lecture 5: https://threejs-journey.xyz/lessons/5
-cube.rotation.x = Math.PI * 0.25 // PI is half a rotation (180 degrees)
-cube.rotation.y = Math.PI * 0.25
 
 const cube_two = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
     new THREE.MeshBasicMaterial({ color: 0x00ff00 })
 )
-cube_two.position.set(0.9, 0.6, 2)
-cube_two.scale.set(0.5, 0.5, 0.5)
-cube_two.rotation.reorder('YXZ')
-cube_two.rotation.x = Math.PI * 0.33
-cube_two.rotation.y = Math.PI * 0.5
+cube_two.position.x = -2
 
 const cube_three = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
     new THREE.MeshBasicMaterial({ color: 0x0000ff })
 )
-cube_three.position.set(1, 1, 1)
-cube_three.scale.set(0.25, 0.25, 0.25)
-cube_three.rotation.reorder('YXZ')
-cube_three.rotation.x = Math.PI * 0.25
-cube_three.rotation.y = Math.PI * -0.25
+cube_three.position.x = 2
 
 cube_group.add(cube)
 cube_group.add(cube_two)
 cube_group.add(cube_three)
+
+// cube.position.x = 0.7
+// cube.position.y = -0.6
+// cube.position.z = 1
+// same as above
+// NOW THIS AFFECTS ALL CUBES INSIDE GROUP
+cube_group.position.set(0.7, 0.6, -1)
+cube_group.scale.set(2, 0.5, 0.5)
+cube_group.rotation.reorder('YXZ') // sets order of rotation (before setting rotation)
+// rotating Y and then X is not the same as rotating X and then Y
+// explanation at about minute 31 of lecture 5: https://threejs-journey.xyz/lessons/5
+cube_group.rotation.x = Math.PI * 0.25 // PI is half a rotation (180 degrees)
+cube_group.rotation.y = Math.PI * 0.25
 
 const sizes = {
     width: 800,
