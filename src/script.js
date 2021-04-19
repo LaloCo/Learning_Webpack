@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+import { Group } from 'three'
 
 // this is the root of the project, not index.html
 // that means that we don't need to add this script
@@ -9,21 +10,47 @@ import * as THREE from 'three'
 
 const scene = new THREE.Scene()
 
-const geometry = new THREE.BoxGeometry(1, 1, 1) // width, height, depth
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-const cube = new THREE.Mesh(geometry, material)
+const cube_group = new THREE.Group()
+
+const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1), // width, height, depth
+    new THREE.MeshBasicMaterial({ color: 0xff0000 })
+)
 // cube.position.x = 0.7
 // cube.position.y = -0.6
 // cube.position.z = 1
 // same as above
 cube.position.set(0.7, 0.6, -1)
 cube.scale.set(2, 0.5, 0.5)
-
-cube.rotation.reorder('YXZ') // sets order of rotation
+cube.rotation.reorder('YXZ') // sets order of rotation (before setting rotation)
 // rotating Y and then X is not the same as rotating X and then Y
 // explanation at about minute 31 of lecture 5: https://threejs-journey.xyz/lessons/5
 cube.rotation.x = Math.PI * 0.25 // PI is half a rotation (180 degrees)
 cube.rotation.y = Math.PI * 0.25
+
+const cube_two = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1),
+    new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+)
+cube_two.position.set(0.9, 0.6, 2)
+cube_two.scale.set(0.5, 0.5, 0.5)
+cube_two.rotation.reorder('YXZ')
+cube_two.rotation.x = Math.PI * 0.33
+cube_two.rotation.y = Math.PI * 0.5
+
+const cube_three = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1),
+    new THREE.MeshBasicMaterial({ color: 0x0000ff })
+)
+cube_three.position.set(1, 1, 1)
+cube_three.scale.set(0.25, 0.25, 0.25)
+cube_three.rotation.reorder('YXZ')
+cube_three.rotation.x = Math.PI * 0.25
+cube_three.rotation.y = Math.PI * -0.25
+
+cube_group.add(cube)
+cube_group.add(cube_two)
+cube_group.add(cube_three)
 
 const sizes = {
     width: 800,
@@ -32,13 +59,14 @@ const sizes = {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height) // degrees & aspect ratio
 // camera.position.z = 3 // three times thee size of cube (which is 1x1x1 as set b4 scale)
 camera.position.set(0.5, 1.5, 3)
+camera.lookAt(cube.position)
 
 console.log(cube.position.length()) // distance from 0,0,0
 console.log(cube.position.distanceTo(camera.position)) // distance to camera
 
 const axesHelper = new THREE.AxesHelper(3) // units three times cube since it's 1x1x1 (b4 scale)
 
-scene.add(cube)
+scene.add(cube_group)
 scene.add(camera)
 scene.add(axesHelper)
 
